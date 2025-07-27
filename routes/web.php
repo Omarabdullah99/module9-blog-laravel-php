@@ -1,15 +1,12 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SinglePostController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('blog.index');
-});
-
-Route::get('/single', function () {
-    return view('blog.show');
-});
+Route::get('/', [HomeController::class])->name('blog.index');
+Route::get('/posts/{post:slug}', [SinglePostController::class])->name('blog.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
