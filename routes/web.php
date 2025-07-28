@@ -19,7 +19,7 @@ Route::middleware('auth')
 ->prefix('admin/')
 ->name('admin.')
 ->group(function () {
-    Route::get('/categories', [CategoryController::class]);
+    Route::resource('/categoires', CategoryController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
