@@ -48,7 +48,7 @@
 
                         <!-- Read More Link -->
                         <a class="inline-flex gap-0.5 justify-center overflow-hidden text-base font-medium transition text-emerald-400 hover:text-emerald-500"
-                            href="{{route('blog.show',$post->slug)}}">
+                            href="{{ route('blog.show', $post->slug) }}">
                             Read more
                             <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"
                                 class="mt-0.5 h-5 w-5 relative top-px -mr-1">
@@ -75,14 +75,19 @@
 
                 <!-- Categories with Post Count -->
                 <div class="flex flex-row flex-wrap gap-2 text-gray-400">
-                    <a class="inline-flex items-center justify-center gap-2 px-3 py-1 text-lg font-medium transition rounded-full ring-1 ring-inset text-zinc-400 ring-white/10 hover:bg-white/5 hover:text-white"
-                        href="/#">Technology
+                    @forelse ($categories as $category)
+                        <a class=" px-3 py-2 text-lg font-medium transition rounded-full ring-1 ring-inset text-zinc-400 ring-white/10 hover:bg-white/5 hover:text-white"
+                            href="{{route('blog.categories', $category->slug)}}">
 
-                        <span
-                            class="text-sm font-medium transition rounded-full py-0.5 w-6 h-6 text-center bg-emerald-800/40 text-emerald-400 ring-1 ring-emerald-400/20">
-                            99
-                        </span>
-                    </a>
+                            <span
+                                class="justify-center text-sm font-medium transition rounded-full p-1 w-6 h-6 text-center bg-emerald-800/40 text-emerald-400 ring-1 ring-emerald-400/20">
+                                {{$category->name}}
+                            </span>
+                        </a>
+
+                    @empty
+                     404 Categories Not Found :P
+                    @endforelse
 
                 </div>
             </div>
