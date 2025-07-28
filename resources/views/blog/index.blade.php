@@ -77,12 +77,12 @@
                 <!-- Categories with Post Count -->
                 <div class="flex flex-row flex-wrap gap-2 text-gray-400">
                     @forelse ($categories as $category)
-                        <a class=" px-3 py-2 text-lg font-medium transition rounded-full ring-1 ring-inset text-zinc-400 ring-white/10 hover:bg-white/5 hover:text-white"
-                            href="{{ route('blog.categories', $category->slug) }}">
+                        <a class="inline-flex items-center justify-center gap-2 rounded-full px-3 py-1 text-lg font-medium text-zinc-400 ring-1 ring-inset ring-white/10 transition hover:bg-white/5 hover:text-white"
+                            href="{{ route('blog.categories', $category->slug) }}">{{ $category->name }}
 
                             <span
-                                class="justify-center text-sm font-medium transition rounded-full p-1 w-6 h-6 text-center bg-emerald-800/40 text-emerald-400 ring-1 ring-emerald-400/20">
-                                {{ $category->name }}
+                                class="h-6 w-6 rounded-full bg-emerald-800/40 py-0.5 text-center text-sm font-medium text-emerald-400 ring-1 ring-emerald-400/20 transition">
+                                {{ $category->posts->count() }}
                             </span>
                         </a>
 
