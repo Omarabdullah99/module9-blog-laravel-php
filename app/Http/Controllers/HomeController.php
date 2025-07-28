@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function __invoke(Request $request)
     {
         return view('blog.index',[
-            'posts'=>Post::all(),
+            'posts'=>Post::paginate(10),
             'categories'=>Category::all()
         ]);
     }
