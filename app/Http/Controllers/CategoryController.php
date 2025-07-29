@@ -63,7 +63,15 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $validated = $request->validated();
+
+        if ($validated['name'] !== $category->name) {
+            $validated['slug'] = str($validated['name'])->slug();
+        }
+
+        $category->updateOrFail($validated);
+
+        return to_route('admin.categories.index')->with('success', 'Category Updated Successfully');
     }
 
     /**
