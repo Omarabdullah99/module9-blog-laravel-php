@@ -2,7 +2,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-           Edit Category:{{$category->name}}
+            Edit Category:{{ $category->name }}
         </h2>
     </x-slot>
 
@@ -11,19 +11,20 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
-                    {{-- Create a New Category Form --}}
-                    <form class="space-y-6" method="post" action="{{ route('admin.categories.store') }}">
+                    {{-- Update Category Form --}}
+                    <form class="space-y-6" method="post" action="{{ route('admin.categories.update',$category) }}">
 
                         <div>
                             <x-input-label for="name" value="Name" />
                             <x-text-input class="block w-full mt-3" id="name" name="name" type="text"
-                                :value="old('name')" required autofocus autocomplete="name" />
+                                :value="old('name',$category->name)" required autofocus autocomplete="name" />
                             <x-input-error class="mt-2" :messages="$errors->get('name')" />
                         </div>
 
                         <x-primary-button>Create</x-primary-button>
 
                         @csrf
+                        @method('PUT')
                     </form>
                 </div>
             </div>
