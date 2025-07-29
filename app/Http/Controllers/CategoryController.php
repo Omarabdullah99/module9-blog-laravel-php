@@ -13,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories= Category::all();
+        $categories = Category::all();
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -30,7 +30,16 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $validated['slug'] = str($validated['name'])->slug();
+
+        $category = Category::create($validated);
+
+        if ($category) {
+            return to_route('admin.categories.index')->with('success', 'Category Created Successfully');
+        }
+
+        return back();
     }
 
     /**
