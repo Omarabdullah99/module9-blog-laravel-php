@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -23,7 +25,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create', [
+            'categories' => Category::latest()->get(),
+        ]);
     }
 
     /**
@@ -31,7 +35,19 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $validated['slug'] = str($validated['title'])->slug();
+
+        /** @var User $user */
+        $user = Auth::user();
+
+        $post = $user->posts()->create($validated);
+
+        if ($post) {
+            return to_route('admin.posts.index')->with('success', 'Post Created Successfully');
+        }
+
+        return back();
     }
 
     /**
