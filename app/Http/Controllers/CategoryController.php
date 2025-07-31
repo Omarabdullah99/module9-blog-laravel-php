@@ -79,6 +79,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->deleteOrFail();
+        return to_route('admin.categories.index')->with('success', 'Category delete Successfully');
+
     }
 }

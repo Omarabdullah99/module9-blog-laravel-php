@@ -77,9 +77,14 @@
                                             <a href="{{ route('admin.categories.edit', $category) }}"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
 
-                                            <a href="#"
-                                                class="font-medium text-red-600 hover:underline dark:text-red-500">Delete</a>
-
+                                            <form class="inline-flex" action="{{ route('admin.categories.destroy', $category) }}"
+                                                method="POST" onclick="return confirm('Are you sure, bro?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    class="font-medium text-red-600 hover:underline dark:text-red-500">Delete
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @empty
@@ -107,7 +112,7 @@
                             </tbody>
                         </table>
                     </div>
-                     <div class="mt-4">{{ $categories->links() }}</div>
+                    <div class="mt-4">{{ $categories->links() }}</div>
                 </div>
             </div>
         </div>
