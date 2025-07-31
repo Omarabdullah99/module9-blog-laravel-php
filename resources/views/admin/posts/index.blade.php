@@ -75,14 +75,14 @@
                                             {{ $post->user->name }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            {{ $post->views }}
+                                            {{ number_format($post->views) }}
                                         </td>
                                         <td class="px-6 py-4">
                                             {{ $post->created_at->diffForHumans() }}
                                         </td>
                                         <td class="px-6 py-4 text-right">
-                                            <a href="{{ route('admin.posts.edit', $post) }}"
-                                                class="font-medium text-green-600 dark:text-blue-500 hover:underline">View</a>
+                                            <a href="{{ route('blog.show', $post) }}"
+                                                class="font-medium text-green-600 dark:text-blue-500 hover:underline" target="_blank">View</a>
 
                                             <a href="{{ route('admin.posts.edit', $post) }}"
                                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
