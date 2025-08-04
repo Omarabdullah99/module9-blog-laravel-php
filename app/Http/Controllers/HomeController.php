@@ -14,17 +14,24 @@ class HomeController extends Controller
      */
     public function __invoke(Request $request)
     {
-         $posts = Post::with('user', 'category')
-        ->when($request->query('search'), function (Builder $query) use ($request) {
-            return $query->where('title', 'LIKE', '%' . $request->query('search') . '%');
-        //         ->orWhere('body', 'LIKE', '%' . $request->query('search') . '%');
-         })
-        ->latest()
-        ->paginate(10);
+        $posts = Post::with('user', 'category')
+            ->when($request->query('search'), function (Builder $query) use ($request) {
+                return $query->where('title', 'LIKE', '%' . $request->query('search') . '%');
+                //         ->orWhere('body', 'LIKE', '%' . $request->query('search') . '%');
+            })
+            ->when($request->query('category'), function (Builder $query) use ($request) {
+                // return $query->whereHas('category', function (Builder $query) use ($request) {
+                //     return $query->where('slug', $request->query('category'));
+                // });
 
-    return view('blog.index', [
-        'posts' => $posts,
-        'categories' => Category::all()
-    ]);
+                return $query->whereRelation('category', 'slug', $request->query('category'));
+            })
+            ->latest()
+            ->paginate(10);
+
+        return view('blog.index', [
+            'posts' => $posts,
+            'categories' => Category::all()
+        ]);
     }
 }
